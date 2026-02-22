@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  tls-probe-proxy:
+    image: openresty/openresty:alpine
+    container_name: openresty-tls-probe
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - ./server.crt:/tmp/papers/nginx/server.crt:ro
+      - ./server.key:/tmp/papers/nginx/server.key:ro
+    environment:
+      - TZ=Asia/Taipei
